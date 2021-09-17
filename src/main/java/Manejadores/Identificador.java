@@ -58,6 +58,7 @@ public class Identificador {
               
               int estadoTempotal= getSiguienteEstado(estadoActual,getIntCaracter(palabra.charAt(posicion)));
                System.out.println("Estado actual " + estadoActual + " caracter----- "+ palabra.charAt(posicion) + "----transicion a "+estadoTempotal);
+               
                token+=palabra.charAt(posicion);
                estadoActual = estadoTempotal;
               System.out.println(palabra.charAt(posicion));
@@ -92,8 +93,9 @@ public class Identificador {
             resultado = 0;
         } 
         
-        else if (Character.isDigit(caracter))
-        {
+        else{
+           
+            if (Character.isDigit(caracter))
              resultado = 1;
         }
 
