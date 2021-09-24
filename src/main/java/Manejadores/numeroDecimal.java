@@ -17,9 +17,9 @@ public class numeroDecimal {
     String palabra;
     int posicion = 0;
     int contErrores=0;
-    int matriz[][] = new int[9][6];
-    int estadosFinalizacion[] = new int[7];
-    String descripcionFinalizacion[] = new String[7];
+    int matriz[][] = new int[10][7];
+    int estadosFinalizacion[] = new int[8];
+    String descripcionFinalizacion[] = new String[8];
     int estadoActual = 0;
 
     // filas s1 --> 1 s2 -> 2
@@ -28,24 +28,25 @@ public class numeroDecimal {
     // no pertenece a mi alfabeto -1
     {
            
-        matriz[0][0] = 1;  matriz[0][1] = -1;   matriz[0][2] = 4;     matriz[0][3] = 6;   matriz[0][4] = 7;     matriz[0][5] = 8;
+        matriz[0][0] = 1;  matriz[0][1] = -1;   matriz[0][2] = 4;     matriz[0][3] = 6;   matriz[0][4] = 7;     matriz[0][5] = 8;       matriz[0][6] = 9;
         
-        matriz[1][0] = 1;  matriz[1][1] = 2;    matriz[1][2] = -1;    matriz[1][3] = -1;  matriz[1][4] = -1;    matriz[1][5] = -1;
+        matriz[1][0] = 1;  matriz[1][1] = 2;    matriz[1][2] = -1;    matriz[1][3] = -1;  matriz[1][4] = -1;    matriz[1][5] = -1;      matriz[1][6] = 0;  
         
-        matriz[2][0] = 3;  matriz[2][1] = -1;   matriz[2][2] = -1;    matriz[2][3] = -1;  matriz[2][4] = -1;    matriz[2][5] = -1;
+        matriz[2][0] = 3;  matriz[2][1] = -1;   matriz[2][2] = -1;    matriz[2][3] = -1;  matriz[2][4] = -1;    matriz[2][5] = -1;      matriz[2][6] = 0;
         
-        matriz[3][0] = 3;  matriz[3][1] = -1;   matriz[3][2] = -1;    matriz[3][3] = -1;  matriz[3][4] = -1;    matriz[3][5] = -1;
+        matriz[3][0] = 3;  matriz[3][1] = -1;   matriz[3][2] = -1;    matriz[3][3] = -1;  matriz[3][4] = -1;    matriz[3][5] = -1;      matriz[3][6] = 0;
             
-        matriz[4][0] = 5;  matriz[4][1] = -1;   matriz[4][2] = 4;     matriz[4][3] = -1;  matriz[4][4] = -1;    matriz[4][5] = -1;
+        matriz[4][0] = 5;  matriz[4][1] = -1;   matriz[4][2] = 4;     matriz[4][3] = -1;  matriz[4][4] = -1;    matriz[4][5] = -1;      matriz[4][6] = 0;
        
-        matriz[5][0] = 5;  matriz[5][1] = -1;   matriz[5][2] = 4;     matriz[5][3] = -1;  matriz[5][4] = -1;    matriz[5][5] = -1;
+        matriz[5][0] = 5;  matriz[5][1] = -1;   matriz[5][2] = 4;     matriz[5][3] = -1;  matriz[5][4] = -1;    matriz[5][5] = -1;      matriz[5][6] = 0;
          
-        matriz[6][0] = -1; matriz[6][1] = -1;   matriz[6][2] = -1;    matriz[6][3] = -1;  matriz[6][4] = -1;    matriz[6][5] = -1;
+        matriz[6][0] = -1; matriz[6][1] = -1;   matriz[6][2] = -1;    matriz[6][3] = -1;  matriz[6][4] = -1;    matriz[6][5] = -1;      matriz[6][6] = 0;
         
-        matriz[7][0] = -1; matriz[7][1] = -1;   matriz[7][2] = -1;    matriz[7][3] = -1;  matriz[7][4] = -1;    matriz[7][5] = -1;
+        matriz[7][0] = -1; matriz[7][1] = -1;   matriz[7][2] = -1;    matriz[7][3] = -1;  matriz[7][4] = -1;    matriz[7][5] = -1;      matriz[7][6] = 0;
 
-        matriz[8][0] = -1; matriz[8][1] = -1;   matriz[8][2] = -1;    matriz[8][3] = -1;  matriz[8][4] = -1;    matriz[8][5] = -1;
-        
+        matriz[8][0] = -1; matriz[8][1] = -1;   matriz[8][2] = -1;    matriz[8][3] = -1;  matriz[8][4] = -1;    matriz[8][5] = -1;      matriz[8][6] = 0;
+       
+        matriz[9][0] = -1; matriz[9][1] = -1;   matriz[9][2] = -1;    matriz[9][3] = -1;  matriz[9][4] = -1;    matriz[9][5] = -1;      matriz[9][6] = -1;
 
         //numero entero
         estadosFinalizacion[0]=1;
@@ -68,6 +69,9 @@ public class numeroDecimal {
            // signo de puntacion
         estadosFinalizacion[6]=8;
         descripcionFinalizacion[6]="signo de puntacion";
+        // espacios y todo
+        estadosFinalizacion[7]=9;
+        descripcionFinalizacion[7]="espacios";
        
 
     }
@@ -94,7 +98,7 @@ public class numeroDecimal {
     public int getSiguienteEstado(int estadoActual, int caracter) {
         int resultado = -1;
         try {
-             if (caracter >= 0 && caracter <= 5) {
+             if (caracter >= 0 && caracter <= 6) {
             resultado = matriz[estadoActual][caracter];
             
         }
@@ -135,7 +139,7 @@ public class numeroDecimal {
                 resultado=5;
             }
             else if(caracter==' '| caracter=='\n' | caracter=='\r' | caracter=='\t' | caracter=='\b' | caracter=='\f'){
-                resultado=-2;
+                resultado=6;
             }
         }
 
@@ -163,10 +167,10 @@ public class numeroDecimal {
         boolean seguirLeyendo = true;
         char tmp;
         String token = "";
-
+            
         while ((seguirLeyendo) && (posicion < palabra.length())) {
             tmp = palabra.charAt(posicion);            
-            if (tmp==' '| tmp=='\n' | tmp=='\r' | tmp=='\t' | tmp=='\b' | tmp=='\f' ) {
+            if ( tmp==' ' |tmp=='\n' | tmp=='\r' | tmp=='\t' | tmp=='\b' | tmp=='\f' ) {
                 seguirLeyendo = false;
                  
   
@@ -191,7 +195,9 @@ public class numeroDecimal {
         else {
         this.texttokenes.append(" Token-----"+getEstadoAceptacion(estadoActual)+ "  lexama-----"+token+"\n");
          }
+        
+        
     }
-    
+   
     
 }
